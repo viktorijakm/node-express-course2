@@ -67,7 +67,7 @@ app.get('/api/v1/products', logger, (req, res) => {
 app.get('/api/v1/products/:productID', (req, res) => {
     const idToFind = parseInt(req.params.productID);
     if (isNaN(idToFind)) {
-        return res.status(404).json({ message: 'Sorry. Product not found'});
+        return res.status(404).json({ message: 'Sorry. Bad request'});
     }
     const product = products.find((p) => p.id === idToFind);
    //product doesnt exist
@@ -95,7 +95,7 @@ app.get('/api/v1/query', (req, res) => {
   if (maxPrice) {
     const priceLimit = parseFloat(maxPrice);
     if (!isNaN(priceLimit)) {
-      filteredProducts = filteredProducts.filter(product => product.price < priceLimit);
+      filteredProducts = filteredProducts.filter(product => product.price <= priceLimit);
     }
   }
  // limit number of results
